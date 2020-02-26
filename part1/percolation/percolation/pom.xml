@@ -37,8 +37,8 @@
         <id>bintray-algs4-maven</id>
         <name>bintray-plugins</name>
         <url>https://dl.bintray.com/algs4/maven</url>
-    </pluginRepository>
-</pluginRepositories>
+      </pluginRepository>
+  </pluginRepositories>
 
   <dependencies>
     <dependency>
@@ -51,7 +51,6 @@
       <groupId>edu.princeton.cs</groupId>
       <artifactId>algs4</artifactId>
       <version>1.0.4</version>
-      <type>pom</type>
     </dependency>
   </dependencies>
 
