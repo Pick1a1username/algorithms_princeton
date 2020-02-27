@@ -18,15 +18,23 @@ public class Percolation {
 
         // Two should be added since there are two more node:
         // top node and bottom node.
-        grid = new int[n+2];
+        grid = new int[(n*n)+2];
 
         // Set id of each object to itself.
-        for (int i = 0; i < n+2; i++) grid[i] = i;
+        for (int i = 0; i < (n*n)+2; i++) grid[i] = i;
 
         // Set id of objects at the top row and the bottom row
         // to the top node and the bottom node respectively.
         for (int i = 1; i <= n; i++) grid[i] = 0;
         for (int i = (n*n) - (n+1); i <= n; i++) grid[i] = n+2;
+    }
+
+    private int root(int i)
+    {
+        // Chase parent pointers until reach root
+        // (depth of i array accesses)
+        while (i != grid[i]) i = grid[i];
+        return i;
     }
 
     // opens the site (row, col) if it is not open already
@@ -37,7 +45,7 @@ public class Percolation {
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) { 
         // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
-        return true; 
+        return grid[((row-1)*size)+col] != ((row-1)*size)+col;
     }
 
     // is the site (row, col) full?

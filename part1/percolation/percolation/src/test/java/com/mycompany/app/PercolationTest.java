@@ -28,4 +28,14 @@ public class PercolationTest
             fail("Unexpected exception thrown");
         }
     }
+
+    @Test
+    public void checkOpenTrue()
+    {
+        Percolation grid = new Percolation(3);
+        assertEquals(false, grid.isOpen(2,1));
+        assertEquals(true, grid.isOpen(1,1));
+
+
+    }
 }
