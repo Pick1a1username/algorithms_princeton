@@ -59,4 +59,36 @@ public class PercolationTest
             fail("Unexpected exception thrown");
         }
     }
+
+    @Test
+    public void checkIsFull()
+    {
+        Percolation grid = new Percolation(3);
+        assertEquals(false, grid.isFull(2,1));
+        assertEquals(true, grid.isFull(1,1));
+    }
+
+    @Test
+    public void checkIsFullException()
+    {
+        try {
+            Percolation gridOne = new Percolation(3);
+            gridOne.isFull(4,1);
+            fail("Exception not thrown");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Out of Range", e.getMessage());
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
+
+        try {
+            Percolation gridTwo = new Percolation(3);
+            gridTwo.isFull(1,4);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Out of Range", e.getMessage());
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
+    }
+
 }

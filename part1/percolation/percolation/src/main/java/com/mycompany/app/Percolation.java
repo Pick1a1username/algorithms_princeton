@@ -29,12 +29,18 @@ public class Percolation {
         for (int i = (n*n) - (n+1); i <= n; i++) grid[i] = n+2;
     }
 
-    private int root(int i)
+    private int root(int target)
     {
         // Chase parent pointers until reach root
-        // (depth of i array accesses)
-        while (i != grid[i]) i = grid[i];
-        return i;
+        while (target != grid[target]) target = grid[target];
+        return target;
+    }
+
+    private int colRowToIndex(int row, int col) {
+        if (col > size || col < 1 || row > size || row < 1) {
+            throw new IllegalArgumentException("Out of Range");
+        }
+        return ((row-1)*size)+col;        
     }
 
     // opens the site (row, col) if it is not open already
@@ -54,7 +60,10 @@ public class Percolation {
     // is the site (row, col) full?
     public boolean isFull(int row, int col) {
         // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
-        return true;
+        if (col > size || col < 1 || row > size || row < 1) {
+            throw new IllegalArgumentException("Out of Range");
+        }
+        return root(colRowToIndex(row, col)) == root(0);
     }
 
     // returns the number of open sites
