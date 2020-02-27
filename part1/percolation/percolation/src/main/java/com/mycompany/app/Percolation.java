@@ -45,11 +45,17 @@ public class Percolation {
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) { 
         // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
+        if (col > size || col < 1 || row > size || row < 1) {
+            throw new IllegalArgumentException("Out of Range");
+        }
         return grid[((row-1)*size)+col] != ((row-1)*size)+col;
     }
 
     // is the site (row, col) full?
-    public boolean isFull(int row, int col) { return true;}
+    public boolean isFull(int row, int col) {
+        // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
+        return true;
+    }
 
     // returns the number of open sites
     public int numberOfOpenSites() { return 1;}
