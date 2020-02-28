@@ -14,23 +14,33 @@ public class Percolation {
         if (n <= 0) {
             throw new IllegalArgumentException("The argument should be greater than zero.");
         }
+
         size = n;
+
+        int topIndex = 0;
+        int bottomIndex = (n*n)+1;
+        int gridLength = (n*n)+2;
 
         // Two should be added since there are two more node:
         // top node and bottom node.
-        grid = new int[(n*n)+2];
+        grid = new int[gridLength];
 
-        // Set id of each object to itself.
-        for (int i = 0; i < (n*n)+2; i++) grid[i] = i;
+        // Set id of each object to -1, which means 'not open'.
+        for (int i = 0; i < gridLength; i++) grid[i] = -1;
+
+        // Set id of the top and bottom objects to itself.
+        grid[topIndex] = topIndex;
+        grid[bottomIndex] = bottomIndex;
 
         // Set id of objects at the top row and the bottom row
         // to the top node and the bottom node respectively.
-        for (int i = 1; i <= n; i++) grid[i] = 0;
-        for (int i = (n*n) - (n+1); i <= n; i++) grid[i] = n+2;
+        for (int i = 1; i <= n; i++) grid[i] = topIndex;
+        for (int i = (n*n) - (n+1); i <= n; i++) grid[i] = bottomIndex;
     }
 
     private int root(int target)
     {
+        if (grid[target] == -1) return target;
         // Chase parent pointers until reach root
         while (target != grid[target]) target = grid[target];
         return target;
@@ -46,6 +56,9 @@ public class Percolation {
     // opens the site (row, col) if it is not open already
     public void open(int row, int col) {
         // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
+        if (col > size || col < 1 || row > size || row < 1) {
+            throw new IllegalArgumentException("Out of Range");
+        }
     }
 
     // is the site (row, col) open?
@@ -54,7 +67,7 @@ public class Percolation {
         if (col > size || col < 1 || row > size || row < 1) {
             throw new IllegalArgumentException("Out of Range");
         }
-        return grid[((row-1)*size)+col] != ((row-1)*size)+col;
+        return grid[colRowToIndex(row, col)] != -1;
     }
 
     // is the site (row, col) full?
