@@ -53,12 +53,55 @@ public class Percolation {
         return ((row-1)*size)+col;        
     }
 
+    private void union(int p, int q) {
+        int i = root(p);
+        int j = root(q);
+        // Todo: 
+        // if (i == j) return;
+        // if (sz[i] < sz[j]) { id[i] = j; sz[j] += sz[i]; }
+        // else               { id[j] = i; sz[i] += sz[j]; }
+
+        grid[i] = j;
+    }
+
     // opens the site (row, col) if it is not open already
+    // Todo: colRwoToIndex can be called only once.
     public void open(int row, int col) {
         // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
         if (col > size || col < 1 || row > size || row < 1) {
             throw new IllegalArgumentException("Out of Range");
         }
+        
+        if (grid[colRowToIndex(row, col)] == -1) {
+            // Open the site.
+            grid[colRowToIndex(row, col)] = colRowToIndex(row, col);
+
+            // If size > 1, check sites around the site.
+            // If there are sites, connect it with the site.
+            if (size > 1) {
+                // Left
+                if ( col > 1 ) {
+                    if ( isOpen(row, col-1) == true ) union(colRowToIndex(row, col), colRowToIndex(row, col-1));
+                }
+
+                // Right
+                if ( col < size ) {
+                    if ( isOpen(row, col+1) == true ) union(colRowToIndex(row, col), colRowToIndex(row, col+1));    
+                }
+
+                // Up
+                if ( row < size ) {
+                    if ( isOpen(row-1, col) == true ) union(colRowToIndex(row, col), colRowToIndex(row-1, col));
+                }
+
+                // Down
+                if ( (size - row) >= 1 ) {
+                    if ( isOpen(row+1, col) == true ) union(colRowToIndex(row, col), colRowToIndex(row+1, col));
+                }
+            }
+
+        }
+
     }
 
     // is the site (row, col) open?
