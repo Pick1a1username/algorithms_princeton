@@ -141,7 +141,15 @@ public class Percolation {
     }
 
     // returns the number of open sites
-    public int numberOfOpenSites() { return 1;}
+    public int numberOfOpenSites() {
+        int count = 0;
+
+        for (int i = 1; i <= (size * size); i++) {
+            if (grid[i] != -1) count++;
+        }
+
+        return count;
+    }
 
     // does the system percolate?
     public boolean percolates() {
