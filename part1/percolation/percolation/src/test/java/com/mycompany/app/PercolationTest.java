@@ -157,4 +157,16 @@ public class PercolationTest
         }
     }
 
+    @Test
+    public void testPercolates()
+    {
+        Percolation grid = new Percolation(3);
+        
+        assertEquals(false, grid.percolates());
+        
+        grid.open(2,1);
+        grid.open(3,1);
+
+        assertEquals(true, grid.percolates());
+    }
 }

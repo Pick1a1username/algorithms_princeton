@@ -122,11 +122,18 @@ public class Percolation {
         return root(colRowToIndex(row, col)) == root(0);
     }
 
+    public boolean isFull(int index) {
+        // Todo: Throw an exception.
+        return root(index) == root(0);
+    }
+
     // returns the number of open sites
     public int numberOfOpenSites() { return 1;}
 
     // does the system percolate?
-    public boolean percolates() { return true; }
+    public boolean percolates() {
+        return isFull((size*size) + 1);
+    }
 
     // test client (optional)
     public static void main(String[] args) {}
