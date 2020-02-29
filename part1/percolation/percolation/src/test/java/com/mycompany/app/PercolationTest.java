@@ -30,15 +30,17 @@ public class PercolationTest
     }
 
     @Test
-    public void checkIsOpen()
+    public void testIsOpen()
     {
         Percolation grid = new Percolation(3);
-        assertEquals(false, grid.isOpen(2,1));
-        assertEquals(true, grid.isOpen(1,1));
+        assertEquals(false, grid.isOpen(1, 1));
+        grid.open(1, 1);
+        assertEquals(true, grid.isOpen(1, 1));
+
     }
 
     @Test
-    public void checkIsOpenException()
+    public void testIsOpenException()
     {
         try {
             Percolation gridOne = new Percolation(3);
@@ -61,15 +63,21 @@ public class PercolationTest
     }
 
     @Test
-    public void checkIsFull()
+    public void testIsFull()
     {
         Percolation grid = new Percolation(3);
-        assertEquals(false, grid.isFull(2,1));
-        assertEquals(true, grid.isFull(1,1));
+        
+        assertEquals(false, grid.isFull(1, 1));
+        grid.open(1, 1);
+        assertEquals(true, grid.isFull(1, 1));
+
+        assertEquals(false, grid.isFull(3, 3));
+        grid.open(3, 3);
+        assertEquals(false, grid.isFull(3, 3));
     }
 
     @Test
-    public void checkIsFullException()
+    public void testIsFullException()
     {
         try {
             Percolation gridOne = new Percolation(3);
@@ -93,12 +101,13 @@ public class PercolationTest
 
     // Todo: Should be revised.
     @Test
-    public void checkOpen()
+    public void testOpen()
     {
         Percolation grid = new Percolation(5);
 
         // Up
         assertEquals(false, grid.isOpen(2,1));
+        grid.open(1,1);
         grid.open(2,1);
         assertEquals(true, grid.isOpen(2,1));
         assertEquals(true, grid.isFull(2,1));
@@ -135,7 +144,7 @@ public class PercolationTest
 
 
     @Test
-    public void checkOpenException()
+    public void testOpenException()
     {
         try {
             Percolation gridOne = new Percolation(3);
@@ -164,8 +173,13 @@ public class PercolationTest
         
         assertEquals(false, grid.percolates());
         
+        grid.open(1,1);
         grid.open(2,1);
         grid.open(3,1);
+
+        assertEquals(true, grid.isFull(1, 1));
+        assertEquals(true, grid.isFull(2, 1));
+        assertEquals(true, grid.isFull(3, 1));
 
         assertEquals(true, grid.percolates());
     }

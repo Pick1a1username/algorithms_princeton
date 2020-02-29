@@ -34,8 +34,8 @@ public class Percolation {
 
         // Set id of objects at the top row and the bottom row
         // to the top node and the bottom node respectively.
-        for (int i = 1; i <= n; i++) grid[i] = topIndex;
-        for (int i = (n*n) - (n+1); i <= n; i++) grid[i] = bottomIndex;
+        // for (int i = 1; i <= n; i++) grid[i] = topIndex;
+        // for (int i = (n*n) - (n+1); i <= n; i++) grid[i] = bottomIndex;
     }
 
     private int root(int target)
@@ -76,6 +76,19 @@ public class Percolation {
             // Open the site.
             grid[colRowToIndex(row, col)] = colRowToIndex(row, col);
 
+            // If the site is at the top or bottom,
+            // it should be connected to the upstream and the downstream, respectively.
+            if ( size == 1 ) {
+                union(colRowToIndex(row, col), 0);
+                union(colRowToIndex(row, col), 2);
+            } else {
+                if ( row == 1 ) {
+                    union(colRowToIndex(row, col), 0);
+                } else if ( row == size ) {
+                    union(colRowToIndex(row, col), (size*size) + 1);
+                }
+            }
+
             // If size > 1, check sites around the site.
             // If there are sites, connect it with the site.
             if (size > 1) {
@@ -90,7 +103,7 @@ public class Percolation {
                 }
 
                 // Up
-                if ( row < size ) {
+                if ( row <= size && row > 1 ) {
                     if ( isOpen(row-1, col) == true ) union(colRowToIndex(row, col), colRowToIndex(row-1, col));
                 }
 
