@@ -43,10 +43,15 @@ public class Percolation {
     }
 
     private int colRowToIndex(int row, int col) {
+        validateCoordinate(row, col);
+
+        return ((row-1)*size)+col;        
+    }
+
+    private void validateCoordinate(int row, int col) {
         if (col > size || col < 1 || row > size || row < 1) {
             throw new IllegalArgumentException("Out of Range");
         }
-        return ((row-1)*size)+col;        
     }
 
     private void union(int p, int q) {
@@ -64,9 +69,7 @@ public class Percolation {
     // Todo: colRwoToIndex can be called only once.
     public void open(int row, int col) {
         // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
-        if (col > size || col < 1 || row > size || row < 1) {
-            throw new IllegalArgumentException("Out of Range");
-        }
+        validateCoordinate(row, col);
         
         if (grid[colRowToIndex(row, col)] == -1) {
             // Open the site.
@@ -116,18 +119,16 @@ public class Percolation {
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) { 
         // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
-        if (col > size || col < 1 || row > size || row < 1) {
-            throw new IllegalArgumentException("Out of Range");
-        }
+        validateCoordinate(row, col);
+
         return grid[colRowToIndex(row, col)] != -1;
     }
 
     // is the site (row, col) full?
     public boolean isFull(int row, int col) {
         // Throw an IllegalArgumentException if any argument to open(), isOpen(), or isFull() is outside its prescribed range.
-        if (col > size || col < 1 || row > size || row < 1) {
-            throw new IllegalArgumentException("Out of Range");
-        }
+        validateCoordinate(row, col);
+
         return root(colRowToIndex(row, col)) == root(0);
     }
 
