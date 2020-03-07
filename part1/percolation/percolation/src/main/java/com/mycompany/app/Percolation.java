@@ -153,6 +153,33 @@ public class Percolation {
         return isFull((size*size) + 1);
     }
 
+    // Get open sites.
+    public int[][] getOpenSites() {
+        int openSitesNum = this.numberOfOpenSites();
+
+        // If there's no site opened, return { {-1, -1} }.
+        if (openSitesNum == 0) {
+            int[][] noSiteOpened = { {-1, -1} };
+            return noSiteOpened ;
+        }
+
+        int[][] openSites = new int[openSitesNum][2];
+        int index = 0;
+
+
+        for (int col = 1; col <= size; col++) {
+            for (int row = 1; row <= size; row++) {
+                if (isOpen(col, row) == true) {
+                    openSites[index][0] = col;
+                    openSites[index][1] = row;
+                    index++;
+                }
+            }
+        }
+
+        return openSites;
+    }
+
     // test client (optional)
     public static void main(String[] args) {}
 }

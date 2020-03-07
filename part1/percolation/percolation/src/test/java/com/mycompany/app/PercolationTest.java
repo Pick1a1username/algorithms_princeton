@@ -197,4 +197,22 @@ public class PercolationTest
 
         assertEquals(3, grid.numberOfOpenSites());
     }
+
+    @Test
+    public void testOpenSites()
+    {
+        Percolation grid = new Percolation(3);
+
+        int [][] beforeExpect = { {-1, -1} };
+        int [][] afterExpect =  { {1, 1}, {2, 2}, {3, 3} };
+
+        assertEquals(0, grid.numberOfOpenSites());
+        assertEquals(beforeExpect, grid.getOpenSites());
+        
+        grid.open(1, 1);
+        grid.open(2, 2);
+        grid.open(3, 3);
+
+        assertEquals(afterExpect, grid.getOpenSites());
+    }
 }
