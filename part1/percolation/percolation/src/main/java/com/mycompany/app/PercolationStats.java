@@ -1,5 +1,7 @@
 package com.mycompany.app;
 
+import java.lang.Math;
+
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
@@ -55,16 +57,24 @@ public class PercolationStats {
     }
 
     // sample mean of percolation threshold
-    public double mean() { return 1.0; }
+    public double mean() { 
+        return StdStats.mean(this.numberOfOpenSites);
+    }
 
     // sample standard deviation of percolation threshold
-    public double stddev() { return 1.0; }
+    public double stddev() {
+        return StdStats.stddev(this.numberOfOpenSites);
+    }
 
     // low endpoint of 95% confidence interval
-    public double confidenceLo() { return 1.0; }
+    public double confidenceLo() { 
+        return this.mean() - ((1.96 * this.stddev()) / Math.sqrt(this.trials));
+    }
 
     // high endpoint of 95% confidence interval
-    public double confidenceHi() { return 1.0; }
+    public double confidenceHi() {
+        return this.mean() + ((1.96 * this.stddev()) / Math.sqrt(this.trials));
+    }
 
     // test client (see below)
     public static void main(String[] args) {}
