@@ -10,7 +10,7 @@ public class PercolationStats {
 
     private int size;
     private int trials;
-    private int[] openSites;
+    private int[] numberOfOpenSites;
 
     // perform independent trials on an n-by-n grid
     public PercolationStats(int n, int trials) {
@@ -22,14 +22,8 @@ public class PercolationStats {
         // Initialize variables.
         this.size = n;
         this.trials = trials;
-        this.openSites = new int[n];
+        this.numberOfOpenSites = new int[n];
 
-        // Start calculation.
-
-        // Simulate percolation n times.
-        for (int i = 0; i < trials; i++) {
-            openSites[i] = simulate(n);
-        }
     }
 
     // Simulate percolation.
@@ -37,13 +31,19 @@ public class PercolationStats {
         Percolation grid = new Percolation(n);
 
         int[][] openSites;
-        // int[] targetSite;
+        int openSitesLength = size;
         int targetSiteIndex;
 
         while (grid.percolates() == false) {
             openSites = grid.getOpenSites();
-            targetSiteIndex = StdRandom.uniform(0, openSites.length - 1);
-            grid.open(openSites[targetSiteIndex][0], openSites[targetSiteIndex][1]);
+            System.out.println(openSites);
+            openSitesLength = openSites.length;
+            if (openSitesLength > 1) {
+                targetSiteIndex = StdRandom.uniform(openSitesLength - 1);
+                grid.open(openSites[targetSiteIndex][0], openSites[targetSiteIndex][1]);
+            } else {
+                grid.open(openSites[0][0], openSites[0][1]);
+            }
         }
 
         return grid.numberOfOpenSites();
