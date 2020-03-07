@@ -12,7 +12,7 @@ public class PercolationStatsTest
     @Test
     public void instantiateClass()
     {
-        PercolationStats newObject = new PercolationStats(3, 10);
+        PercolationStats newObject = new PercolationStats(3, 3);
         assertNotNull(newObject);
     }
 
