@@ -215,4 +215,32 @@ public class PercolationTest
 
         assertEquals(afterExpect, grid.getOpenSites());
     }
+
+    @Test
+    public void testCloseSites()
+    {
+        Percolation grid = new Percolation(3);
+
+        int [][] beforeExpect = { {1, 1}, {1, 2}, {1, 3}, {2, 1}, {2, 2}, {2, 3}, {3, 1}, {3, 2}, {3, 3} };
+        int [][] afterOneExpect =  { {1, 2}, {1, 3}, {2, 1}, {2, 3}, {3, 1}, {3, 2} };
+        int [][] afterTwoExpect =  { {-1, -1} };
+
+        assertEquals(0, grid.numberOfOpenSites());
+        assertEquals(beforeExpect, grid.getCloseSites());
+        
+        grid.open(1, 1);
+        grid.open(2, 2);
+        grid.open(3, 3);
+
+        assertEquals(afterOneExpect, grid.getCloseSites());
+
+        grid.open(1, 2);
+        grid.open(1, 3);
+        grid.open(2, 1);
+        grid.open(2, 3);
+        grid.open(3, 1);
+        grid.open(3, 2);
+
+        assertEquals(afterTwoExpect, grid.getCloseSites());
+    }
 }

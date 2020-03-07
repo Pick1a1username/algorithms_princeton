@@ -180,6 +180,33 @@ public class Percolation {
         return openSites;
     }
 
+    // Get close sites.
+    public int[][] getCloseSites() {
+        int openSitesNum = this.numberOfOpenSites();
+
+        // If there's no site opened, return { {-1, -1} }.
+        if (openSitesNum == (size*size)) {
+            int[][] noSiteClosed = { {-1, -1} };
+            return noSiteClosed;
+        }
+
+        int[][] closeSites = new int[(size*size) - openSitesNum][2];
+        
+        
+        int index = 0;
+        for (int col = 1; col <= size; col++) {
+            for (int row = 1; row <= size; row++) {
+                if (isOpen(col, row) == false) {
+                    closeSites[index][0] = col;
+                    closeSites[index][1] = row;
+                    index++;
+                }
+            }
+        }
+
+        return closeSites;
+    }
+
     // test client (optional)
     public static void main(String[] args) {}
 }
