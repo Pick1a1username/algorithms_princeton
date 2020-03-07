@@ -24,25 +24,30 @@ public class PercolationStats {
         this.trials = trials;
         this.numberOfOpenSites = new int[n];
 
+        // Start calculation.
+
+        // Simulate percolation n times.
+        for (int i = 0; i < trials; i++) {
+            this.numberOfOpenSites[i] = simulate(n);
+        }
     }
 
     // Simulate percolation.
     private int simulate(int n) {
         Percolation grid = new Percolation(n);
 
-        int[][] openSites;
-        int openSitesLength = size;
+        int[][] closeSites;
+        int closeSitesLength = size;
         int targetSiteIndex;
 
         while (grid.percolates() == false) {
-            openSites = grid.getOpenSites();
-            System.out.println(openSites);
-            openSitesLength = openSites.length;
-            if (openSitesLength > 1) {
-                targetSiteIndex = StdRandom.uniform(openSitesLength - 1);
-                grid.open(openSites[targetSiteIndex][0], openSites[targetSiteIndex][1]);
+            closeSites = grid.getCloseSites();
+            closeSitesLength = closeSites.length;
+            if (closeSitesLength > 1) {
+                targetSiteIndex = StdRandom.uniform(closeSitesLength - 1);
+                grid.open(closeSites[targetSiteIndex][0], closeSites[targetSiteIndex][1]);
             } else {
-                grid.open(openSites[0][0], openSites[0][1]);
+                grid.open(closeSites[0][0], closeSites[0][1]);
             }
         }
 
