@@ -34,27 +34,19 @@ public class PercolationStats {
 
     // Simulate percolation.
     private int simulate(int n) {
-        // Percolation grid = new Percolation(n);
+        Percolation grid = new Percolation(n);
 
-        // int[] cols;
-        // int[] rows;
-        // int col;
-        // int row;
+        int[][] openSites;
+        // int[] targetSite;
+        int targetSiteIndex;
 
-        // while (grid.percolates() == false) {
-        //     col = StdRandom.discrete(cols);
-        //     row = StdRandom.discrete(rows);
-        //     grid.open(col, row);
+        while (grid.percolates() == false) {
+            openSites = grid.getOpenSites();
+            targetSiteIndex = StdRandom.uniform(0, openSites.length - 1);
+            grid.open(openSites[targetSiteIndex][0], openSites[targetSiteIndex][1]);
+        }
 
-        //     for (int i = 0; i < cols.length; i++) {
-        //         cols[i] = 
-        //     }
-
-        //     System.out.println("aaa");
-        // }
-
-        // return grid.numberOfOpenSites();
-        return 1;
+        return grid.numberOfOpenSites();
     }
 
     // sample mean of percolation threshold
